@@ -1,0 +1,22 @@
+<resources>
+     <string name="app_name">WanAndroid</string>
+     <string name="title_home">Home</string>
+     <string name="title_dashboard">Dashboard</string>
+     <string name="title_notifications">Notifications</string>
+     <string name="home_txt">首页</string>
+     <string name="tree_txt">体系</string>
+     <string name="navigation_txt">导航</string>
+     <string name="project_txt">项目</string>
+     <string name="mine_txt">我的</string>
+     <!-- 搜索 -->
+     <string name="search_txt">搜索</string>
+     <string name="hot_search_txt">热门搜索</string>
+     <string name="search_history_txt">历史搜索</string>
+     <!-- 我的 -->
+     <string name="not_login_txt">未登录</string>
+     <string name="my_collection_txt">我的收藏</string>
+     <string name="about_app_txt">关于</string>
+     <string name="setting_app_txt">设置</string>
+     <!-- 首页 -->
+     <string name="common_websites_txt">常用网站</string>
+</resources>
