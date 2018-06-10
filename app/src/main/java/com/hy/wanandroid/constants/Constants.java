@@ -7,5 +7,7 @@ package com.hy.wanandroid.constants;
 public class Constants {
 
     public static final String LINK = "link";
+    public static final String TREENAME = "treeName";
+    public static final String CID = "cid";
 
 }

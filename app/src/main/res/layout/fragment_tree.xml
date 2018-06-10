@@ -16,7 +16,7 @@
             android:background="@color/cerulean" />
 
         <ImageView
-            android:id="@+id/searchView"
+            android:id="@+id/changListStyle"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_alignParentRight="true"
@@ -26,6 +26,7 @@
     </RelativeLayout>
 
     <LinearLayout
+        android:id="@+id/twoRecyclerViewLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
@@ -48,5 +49,11 @@
             android:layout_weight="5" />
 
     </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/treeListRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
 
 </LinearLayout>

@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.graphics.Bitmap;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
@@ -11,6 +12,7 @@ import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 
 import com.hy.wanandroid.R;
 
@@ -25,6 +27,7 @@ public class ArticleActivity extends BaseActivity {
     String linkUrl;
     Toolbar toolbar;
     WebView webView;
+    ProgressBar progress;
 
     @Override
     public void setContentView() {
@@ -33,7 +36,21 @@ public class ArticleActivity extends BaseActivity {
 
 
     private void initTitle() {
-        toolbar = findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_back_left_white);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.white));
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!webView.canGoBack()) {
+                    finish();
+                }else{
+                    webView.goBack();
+                }
+            }
+        });
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
@@ -42,6 +59,7 @@ public class ArticleActivity extends BaseActivity {
         linkUrl = getIntent().getStringExtra(LINK);
 
         webView = findViewById(R.id.webView);
+        progress = findViewById(R.id.progress);
 
         //设置不用系统浏览器打开,直接显示在当前Webview
         webView.setWebViewClient(new WebViewClient() {
@@ -68,11 +86,10 @@ public class ArticleActivity extends BaseActivity {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 if (newProgress < 100) {
-                    String progress = newProgress + "%";
-//                    loading.setText(progress);
+                    progress.setVisibility(View.VISIBLE);
+                    progress.setProgress(newProgress);
                 } else if (newProgress == 100) {
-                    String progress = newProgress + "%";
-//                    loading.setText(progress);
+                    progress.setVisibility(View.GONE);
                 }
             }
         });

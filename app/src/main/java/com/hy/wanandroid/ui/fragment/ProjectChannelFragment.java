@@ -28,6 +28,7 @@ public class ProjectChannelFragment extends BaseFragment implements ProjectView 
 
     ProjectPresenter projectPresenter;
     ShortPagerAdapter shortPagerAdapter;
+    List<ProjectBean> mProjectList;
 
     private static final int ALL_MODE = 0;
     private static final int WORDS_MODE = 1;
@@ -65,6 +66,7 @@ public class ProjectChannelFragment extends BaseFragment implements ProjectView 
 
     @Override
     public void setProject(List<ProjectBean> projectList) {
+        mProjectList = projectList;
         shortPagerAdapter.add(projectList);
     }
 
@@ -83,7 +85,13 @@ public class ProjectChannelFragment extends BaseFragment implements ProjectView 
 
         @Override
         public BaseFragment getItem(int position) {
-            ProjectFragment fragment = new ProjectFragment();
+            ProjectFragment fragment = null;
+            for (int i = 0; i < mProjectList.size(); i++) {
+                mTilte.get(position).equals(mProjectList.get(i));
+                if (position == i) {
+                    fragment = ProjectFragment.arguments(mProjectList.get(i).getId());
+                }
+            }
             return fragment;
         }
 

@@ -7,6 +7,7 @@ import com.hy.wanandroid.bean.JsonBean;
 import com.hy.wanandroid.bean.NaviBean;
 import com.hy.wanandroid.bean.ProjectBean;
 import com.hy.wanandroid.bean.ProjectListBean;
+import com.hy.wanandroid.bean.TreeArticleBean;
 import com.hy.wanandroid.bean.TreeBean;
 
 import java.util.List;
@@ -36,6 +37,11 @@ public interface APIInterface {
     String treeUrl = "tree/json";
     @GET(treeUrl)
     Observable<List<TreeBean>> getTree();
+
+    String treeArticleUrl ="article/list/{page}/json";
+    @GET(treeArticleUrl)
+    Observable<TreeArticleBean> getTreeArticle(@Path("page") String page,
+                                               @Query("cid") String cid);
 
     String naviUrl = "navi/json";
     @GET(naviUrl)

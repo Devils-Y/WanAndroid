@@ -7,6 +7,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -15,6 +16,7 @@ import com.hy.wanandroid.R;
 import com.hy.wanandroid.eventbus.HomeEvent;
 import com.hy.wanandroid.ui.activity.ArticleActivity;
 import com.hy.wanandroid.ui.activity.MainActivity;
+import com.hy.wanandroid.ui.activity.SearchActivity;
 import com.hy.wanandroid.ui.adapter.BaseAdapter;
 import com.hy.wanandroid.ui.adapter.BaseViewHolder;
 import com.hy.wanandroid.bean.FriendBean;
@@ -38,9 +40,8 @@ import static com.hy.wanandroid.constants.Constants.LINK;
  * <p>
  * 首页
  */
-public class HomeFragment extends BaseFragment implements JsonView, FriendView {
+public class HomeFragment extends BaseFragment implements View.OnClickListener,JsonView, FriendView {
 
-    private int mOffset = 0;
     private int mScrollY = 0;
 
     ImageView searchView;
@@ -60,7 +61,6 @@ public class HomeFragment extends BaseFragment implements JsonView, FriendView {
     JsonPresenter jsonPresenter;
     int page = 0;
     int pageCount = 0;
-    String linkUrl;
 
     @Override
     public int setContentLyaoutId() {
@@ -78,6 +78,7 @@ public class HomeFragment extends BaseFragment implements JsonView, FriendView {
         refreshLayout = getContentView().findViewById(R.id.refreshLayout);
         friendRecyclerView = getContentView().findViewById(R.id.friendRecyclerView);
         artRecyclerView = getContentView().findViewById(R.id.artRecyclerView);
+        searchView.setOnClickListener(this);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -109,7 +110,7 @@ public class HomeFragment extends BaseFragment implements JsonView, FriendView {
                         .setText(R.id.belong2, item.getSuperChapterName()
                                 + "/" + item.getChapterName())
                         .setText(R.id.time, item.getNiceDate())
-                        .setText(R.id.title, item.getTitle());
+                        .setText(R.id.title, Html.fromHtml(item.getTitle()));
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -174,6 +175,16 @@ public class HomeFragment extends BaseFragment implements JsonView, FriendView {
     @Override
     public void viewDestroy() {
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.searchView:
+                Intent intent = new Intent(getActivity(), SearchActivity.class);
+                startActivity(intent);
+                break;
+        }
     }
 
     @Override

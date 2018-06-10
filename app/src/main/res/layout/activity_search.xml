@@ -9,7 +9,7 @@
           android:id="@+id/titleLayout"
           android:layout_width="match_parent"
           android:layout_height="60dp"
-          android:background="@drawable/gradient_title_color">
+          android:background="@color/cerulean">
 
           <ImageView
                android:id="@+id/backImg"

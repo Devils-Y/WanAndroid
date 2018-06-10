@@ -11,4 +11,7 @@
      <color name="white">#FFF</color>
      <color name="black">#000</color>
      <color name="light_black">#21000000</color>
+     <color name="one_gray">#BEBEBE</color>
+     <color name="three_gary">#ECECEC</color>
+     <color name="two_gary">#EFEFEF</color>
 </resources>

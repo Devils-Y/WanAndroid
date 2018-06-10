@@ -22,8 +22,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.ArticleActivity" />
         <activity android:name=".ui.activity.SearchActivity" />
+        <activity android:name=".ui.activity.ArticleActivity" />
+        <activity android:name=".ui.activity.ArticleListActivity" />
     </application>
 
 </manifest>
