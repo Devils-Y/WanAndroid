@@ -6,11 +6,26 @@
     android:layout_marginBottom="55dp"
     android:orientation="vertical">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/cerulean" />
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/cerulean" />
+
+        <ImageView
+            android:id="@+id/changStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/ic_list_white" />
+
+    </RelativeLayout>
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tabView"
@@ -21,7 +36,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/light_black"/>
+        android:background="@color/light_black" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"

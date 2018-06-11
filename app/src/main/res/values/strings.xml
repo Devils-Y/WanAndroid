@@ -19,4 +19,8 @@
      <string name="setting_app_txt">设置</string>
      <!-- 首页 -->
      <string name="common_websites_txt">常用网站</string>
+     <!-- 项目 -->
+     <string name="all_mode_txt">完整模式</string>
+     <string name="words_mode_txt">文字模式</string>
+     <string name="picture_mode_txt">效果图模式</string>
 </resources>

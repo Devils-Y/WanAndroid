@@ -24,12 +24,25 @@ public class SharedPreferenceUtils {
         init("TREE");
         SharedPreferences.Editor editor = sharedPreference.edit();
         editor.putBoolean("tree", isList);
-        editor.commit();
+        editor.apply();
     }
 
     public static boolean ReadTree() {
         init("TREE");
         boolean isLists = sharedPreference.getBoolean("tree", false);
         return isLists;
+    }
+
+    public static void WriteProjectType(int type){
+        init("PROJECT_TYPE");
+        SharedPreferences.Editor editor = sharedPreference.edit();
+        editor.putInt("projectType", type);
+        editor.apply();
+    }
+
+    public static int ReadProjectType() {
+        init("PROJECT_TYPE");
+        int mType = sharedPreference.getInt("projectType", 0);
+        return mType;
     }
 }

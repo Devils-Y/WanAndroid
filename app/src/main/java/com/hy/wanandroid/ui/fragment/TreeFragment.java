@@ -198,11 +198,9 @@ public class TreeFragment extends BaseFragment implements View.OnClickListener, 
                     childrenAdapter.clear();
                 }
                 if (treeListAdapter.size() != 0) {
-                    Log.e("TAG","----treeListAdapter---");
                     treeListAdapter.clear();
                 }
                 if (treeAdapter.size() != 0) {
-                    Log.e("TAG","----treeAdapter---");
                     treeAdapter.clear();
                 }
 

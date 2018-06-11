@@ -7,7 +7,6 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentTransaction;
 import android.view.MenuItem;
 
-import com.hy.wanandroid.eventbus.HomeEvent;
 import com.hy.wanandroid.ui.BottomNavigationViewHelper;
 import com.hy.wanandroid.R;
 import com.hy.wanandroid.ui.fragment.HomeFragment;

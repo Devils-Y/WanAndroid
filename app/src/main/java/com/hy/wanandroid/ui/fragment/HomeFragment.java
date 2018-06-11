@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.hy.wanandroid.R;
-import com.hy.wanandroid.eventbus.HomeEvent;
 import com.hy.wanandroid.ui.activity.ArticleActivity;
 import com.hy.wanandroid.ui.activity.MainActivity;
 import com.hy.wanandroid.ui.activity.SearchActivity;
