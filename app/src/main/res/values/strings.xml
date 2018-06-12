@@ -23,4 +23,12 @@
      <string name="all_mode_txt">完整模式</string>
      <string name="words_mode_txt">文字模式</string>
      <string name="picture_mode_txt">效果图模式</string>
+     <!-- 登录注册 -->
+     <string name="login_txt">登录</string>
+     <string name="username_txt">用户名</string>
+     <string name="input_username_txt">输入用户名</string>
+     <string name="password_txt">密码</string>
+     <string name="input_password_txt">输入密码</string>
+     <string name="not_have_account_txt">还没有账号?</string>
+     <string name="to_register_txt">注册一下</string>
 </resources>

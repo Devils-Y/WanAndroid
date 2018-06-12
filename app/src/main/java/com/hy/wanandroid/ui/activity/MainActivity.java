@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import com.hy.wanandroid.ui.BottomNavigationViewHelper;
 import com.hy.wanandroid.R;
 import com.hy.wanandroid.ui.fragment.HomeFragment;
+import com.hy.wanandroid.ui.fragment.MineFragment;
 import com.hy.wanandroid.ui.fragment.NavigationFragment;
 import com.hy.wanandroid.ui.fragment.ProjectChannelFragment;
 import com.hy.wanandroid.ui.fragment.TreeFragment;
@@ -23,6 +24,7 @@ public class MainActivity extends BaseActivity {
     TreeFragment treeFragment;
     NavigationFragment navigationFragment;
     ProjectChannelFragment projectChannelFragment;
+    MineFragment mineFragment;
 
     @Override
     public void setContentView() {
@@ -71,11 +73,11 @@ public class MainActivity extends BaseActivity {
                 case R.id.navigation_tree:
                     toTreeFragment();
                     return true;
-                case R.id.navigation_navigation:
-                    toNavigationFragment();
-                    return true;
                 case R.id.navigation_project:
                     toProjectFragment();
+                    return true;
+                case R.id.navigation_mine:
+                    toMineFragment();
                     return true;
             }
             return false;
@@ -94,6 +96,9 @@ public class MainActivity extends BaseActivity {
         }
         if (projectChannelFragment != null) {
             fragmentTransaction.hide(projectChannelFragment);
+        }
+        if (mineFragment != null) {
+            fragmentTransaction.hide(mineFragment);
         }
     }
 
@@ -145,6 +150,19 @@ public class MainActivity extends BaseActivity {
             fragmentTransaction.add(R.id.container, projectChannelFragment);
         } else {
             fragmentTransaction.show(projectChannelFragment);
+        }
+        fragmentTransaction.commit();
+    }
+
+    /**
+     * 我的
+     */
+    private void toMineFragment() {
+        if (mineFragment == null) {
+            mineFragment = new MineFragment();
+            fragmentTransaction.add(R.id.container, mineFragment);
+        } else {
+            fragmentTransaction.show(mineFragment);
         }
         fragmentTransaction.commit();
     }

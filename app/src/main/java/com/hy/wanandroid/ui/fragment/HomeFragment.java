@@ -13,6 +13,9 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.hy.wanandroid.R;
+import com.hy.wanandroid.bean.BannerBean;
+import com.hy.wanandroid.framework.presenter.BannerPresenter;
+import com.hy.wanandroid.framework.view.BannerView;
 import com.hy.wanandroid.ui.activity.ArticleActivity;
 import com.hy.wanandroid.ui.activity.MainActivity;
 import com.hy.wanandroid.ui.activity.SearchActivity;
@@ -39,7 +42,8 @@ import static com.hy.wanandroid.constants.Constants.LINK;
  * <p>
  * 首页
  */
-public class HomeFragment extends BaseFragment implements View.OnClickListener,JsonView, FriendView {
+public class HomeFragment extends BaseFragment implements View.OnClickListener,
+        JsonView, FriendView, BannerView {
 
     private int mScrollY = 0;
 
@@ -58,6 +62,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,J
 
     FriendPresenter friendPresenter;
     JsonPresenter jsonPresenter;
+    BannerPresenter bannerPresenter;
     int page = 0;
     int pageCount = 0;
 
@@ -169,6 +174,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,J
         friendPresenter.getFriend();
         jsonPresenter = new JsonPresenter(this);
         jsonPresenter.getJson(String.valueOf(page));
+        bannerPresenter = new BannerPresenter(this);
+        bannerPresenter.getBanner();
     }
 
     @Override
@@ -178,7 +185,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,J
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.searchView:
                 Intent intent = new Intent(getActivity(), SearchActivity.class);
                 startActivity(intent);
@@ -198,6 +205,13 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,J
     public void setFriend(List<FriendBean> friendList) {
         for (FriendBean friend : friendList) {
             friendAdapter.add(friend);
+        }
+    }
+
+    @Override
+    public void setBanner(List<BannerBean> banner) {
+        for (int i = 0; i < banner.size(); i++) {
+            Log.e("TAG", "---->----" + banner.get(i).getTitle());
         }
     }
 }

@@ -1,24 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-     <item
-          android:id="@+id/navigation_home"
-          android:icon="@drawable/ic_home_black"
-          android:title="@string/home_txt"/>
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_home_black"
+        android:title="@string/home_txt" />
 
-     <item
-          android:id="@+id/navigation_tree"
-          android:icon="@drawable/ic_dashboard_black"
-          android:title="@string/tree_txt"/>
+    <item
+        android:id="@+id/navigation_tree"
+        android:icon="@drawable/ic_dashboard_black"
+        android:title="@string/tree_txt" />
 
-     <item
-          android:id="@+id/navigation_navigation"
-          android:icon="@drawable/ic_whatshot_black"
-          android:title="@string/navigation_txt"/>
+    <!--<item-->
+    <!--android:id="@+id/navigation_navigation"-->
+    <!--android:icon="@drawable/ic_whatshot_black"-->
+    <!--android:title="@string/navigation_txt"/>-->
 
-     <item
-          android:id="@+id/navigation_project"
-          android:icon="@drawable/ic_extension_black"
-          android:title="@string/project_txt"/>
+    <item
+        android:id="@+id/navigation_project"
+        android:icon="@drawable/ic_extension_black"
+        android:title="@string/project_txt" />
+
+    <item
+        android:id="@+id/navigation_mine"
+        android:icon="@drawable/ic_face_black"
+        android:title="@string/mine_txt" />
 
 </menu>

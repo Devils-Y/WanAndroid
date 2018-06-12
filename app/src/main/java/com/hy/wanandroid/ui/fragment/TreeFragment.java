@@ -11,9 +11,14 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.google.android.flexbox.FlexDirection;
+import com.google.android.flexbox.FlexboxLayoutManager;
+import com.google.android.flexbox.JustifyContent;
 import com.hy.wanandroid.R;
 import com.hy.wanandroid.data.SharedPreferenceUtils;
 import com.hy.wanandroid.ui.activity.ArticleListActivity;
@@ -22,7 +27,6 @@ import com.hy.wanandroid.ui.adapter.BaseViewHolder;
 import com.hy.wanandroid.bean.TreeBean;
 import com.hy.wanandroid.framework.presenter.TreePresenter;
 import com.hy.wanandroid.framework.view.TreeView;
-import com.hy.wanandroid.ui.toast.ToastUtils;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -51,6 +55,8 @@ public class TreeFragment extends BaseFragment implements View.OnClickListener, 
 
     List<TreeBean> treeListList;
     BaseAdapter<TreeBean> treeListAdapter;
+    List<TreeBean.ChildrenBean> childrenBeanList;
+    BaseAdapter<TreeBean.ChildrenBean> childrenBeanBaseAdapter;
 
     TreePresenter treePresenter;
     //detail对应的ID
@@ -129,12 +135,44 @@ public class TreeFragment extends BaseFragment implements View.OnClickListener, 
          */
         treeListRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         treeListList = new LinkedList<>();
+        childrenBeanList = new LinkedList<>();
+
         treeListAdapter = new BaseAdapter<TreeBean>(getActivity(), treeListList,
                 R.layout.item_tree_list) {
+
+            FlexboxLayoutManager layoutManager = null;
+
             @Override
             protected void onBindViewHolder(BaseViewHolder holder,
                                             TreeBean item, int position) {
                 holder.setText(R.id.title, item.getName());
+                RecyclerView flexboxRecyclerView = holder.getView(R.id.flexboxRecyclerView);
+                flexboxRecyclerView.setNestedScrollingEnabled(false);
+                layoutManager = new FlexboxLayoutManager(getActivity());
+                layoutManager.setFlexDirection(FlexDirection.ROW);
+                layoutManager.setJustifyContent(JustifyContent.FLEX_START);
+                flexboxRecyclerView.setLayoutManager(layoutManager);
+                childrenBeanBaseAdapter = new BaseAdapter<TreeBean.ChildrenBean>(getActivity(),
+                        childrenBeanList, R.layout.item_tree_children_flox) {
+                    @Override
+                    protected void onBindViewHolder(BaseViewHolder holder, TreeBean.ChildrenBean item, int position) {
+                        holder.setText(R.id.childrenTv, item.getName());
+                        holder.itemView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(getActivity(), ArticleListActivity.class);
+                                intent.putExtra(CID, String.valueOf(item.getId()));
+                                intent.putExtra(TREENAME, item.getName());
+                                startActivity(intent);
+                            }
+                        });
+                    }
+                };
+                flexboxRecyclerView.setAdapter(childrenBeanBaseAdapter);
+                childrenBeanBaseAdapter.clear();
+                for (TreeBean.ChildrenBean children : item.getChildren()) {
+                    childrenBeanBaseAdapter.add(children);
+                }
             }
         };
         treeListRecyclerView.setAdapter(treeListAdapter);

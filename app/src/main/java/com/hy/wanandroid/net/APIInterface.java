@@ -1,9 +1,11 @@
 package com.hy.wanandroid.net;
 
 
+import com.hy.wanandroid.bean.BannerBean;
 import com.hy.wanandroid.bean.BaseBean;
 import com.hy.wanandroid.bean.FriendBean;
 import com.hy.wanandroid.bean.JsonBean;
+import com.hy.wanandroid.bean.LoginBean;
 import com.hy.wanandroid.bean.NaviBean;
 import com.hy.wanandroid.bean.ProjectBean;
 import com.hy.wanandroid.bean.ProjectListBean;
@@ -14,7 +16,9 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.Call;
+import retrofit2.http.Field;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -28,7 +32,7 @@ public interface APIInterface {
 
     String bannerUrl = "banner/json";
     @GET(bannerUrl)
-    Call<BaseBean<String>> getBanner();
+    Observable<List<BannerBean>> getBanner();
 
     String friendUrl = "friend/json";
     @GET(friendUrl)
@@ -38,7 +42,7 @@ public interface APIInterface {
     @GET(treeUrl)
     Observable<List<TreeBean>> getTree();
 
-    String treeArticleUrl ="article/list/{page}/json";
+    String treeArticleUrl = "article/list/{page}/json";
     @GET(treeArticleUrl)
     Observable<TreeArticleBean> getTreeArticle(@Path("page") String page,
                                                @Query("cid") String cid);
@@ -55,4 +59,9 @@ public interface APIInterface {
     @GET(projectListUrl)
     Observable<ProjectListBean> getProjectList(@Path("page") String page,
                                                @Query("cid") String cid);
+
+    String loginUrl = "user/login";
+    @POST(loginUrl)
+    Observable<LoginBean> postLogin(@Field("username") String username,
+                                    @Field("password") String password);
 }
