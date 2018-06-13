@@ -33,7 +33,7 @@ public class SharedPreferenceUtils {
         return isLists;
     }
 
-    public static void WriteProjectType(int type){
+    public static void WriteProjectType(int type) {
         init("PROJECT_TYPE");
         SharedPreferences.Editor editor = sharedPreference.edit();
         editor.putInt("projectType", type);
@@ -44,5 +44,18 @@ public class SharedPreferenceUtils {
         init("PROJECT_TYPE");
         int mType = sharedPreference.getInt("projectType", 0);
         return mType;
+    }
+
+    public static void WriteUsername(String username) {
+        init("USERNAME");
+        SharedPreferences.Editor editor = sharedPreference.edit();
+        editor.putString("username", username);
+        editor.apply();
+    }
+
+    public static String ReadUsername() {
+        init("USERNAME");
+        String username = sharedPreference.getString("username",null);
+        return username;
     }
 }

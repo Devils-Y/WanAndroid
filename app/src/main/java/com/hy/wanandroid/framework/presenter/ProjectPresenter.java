@@ -8,6 +8,8 @@ import com.hy.wanandroid.net.HttpNet;
 
 import java.util.List;
 
+import retrofit2.Response;
+
 /**
  * author: huyin
  * date: 2018/6/8
@@ -26,13 +28,10 @@ public class ProjectPresenter implements BaseListener<List<ProjectBean>> {
     }
 
     @Override
-    public void onSuccess(List<ProjectBean> projectBeanList) {
-        projectView.setProject(projectBeanList);
-    }
-
-    @Override
-    public void onFailed(Throwable t) {
-
+    public void onSuccess(Response<List<ProjectBean>> t) {
+        if (t.body() != null) {
+            projectView.setProject(t.body());
+        }
     }
 
     @Override

@@ -11,5 +11,6 @@ public class Constants {
     public static final String CID = "cid";
     public static final String PROJECTSTYLE = "projectStyle";
     public static final String STYLETYPE = "styleType";
+    public static final String LOGIN_SUCCESS = "login_success";
 
 }

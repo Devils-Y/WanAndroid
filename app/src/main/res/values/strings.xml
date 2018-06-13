@@ -31,4 +31,8 @@
      <string name="input_password_txt">输入密码</string>
      <string name="not_have_account_txt">还没有账号?</string>
      <string name="to_register_txt">注册一下</string>
+     <string name="confirm_password_txt">确认密码</string>
+     <string name="confirm_register_txt">确认注册</string>
+     <string name="register_txt">注册</string>
+     <!-- 收藏 -->
 </resources>

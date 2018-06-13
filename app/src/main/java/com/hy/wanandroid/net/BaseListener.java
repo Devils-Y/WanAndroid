@@ -1,10 +1,10 @@
 package com.hy.wanandroid.net;
 
 
+import retrofit2.Response;
+
 public interface BaseListener<T> {
-     void onSuccess(T t);
+    void onSuccess(Response<T> t);
 
-     void onFailed(Throwable t);
-
-     void onError(String errorString);
+    void onError(String errorString);
 }

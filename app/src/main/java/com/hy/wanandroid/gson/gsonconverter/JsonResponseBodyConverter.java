@@ -46,11 +46,12 @@ public class JsonResponseBodyConverter<T> implements Converter<ResponseBody, T> 
             if (jsonObject.getString("errorCode") != null) {
                 ErrorCode.code = Integer.valueOf(jsonObject.getString("errorCode"));
                 if (ErrorCode.isSuccess()) {
-                    t = GsonHelper.getDeserializer().fromJson(jsonObject.getString("data"), type);
+                    if (jsonObject.getString("data") != null) {
+                        t = GsonHelper.getDeserializer().fromJson(jsonObject.getString("data"), type);
+                    }
                 } else {
                     ToastUtils.toast(jsonObject.getString("errorMsg"));
                 }
-
             }
         } catch (JSONException e) {
             e.printStackTrace();

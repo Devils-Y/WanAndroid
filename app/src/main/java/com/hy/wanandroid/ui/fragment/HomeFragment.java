@@ -14,8 +14,14 @@ import android.widget.ImageView;
 
 import com.hy.wanandroid.R;
 import com.hy.wanandroid.bean.BannerBean;
+import com.hy.wanandroid.bean.CollectBean;
+import com.hy.wanandroid.bean.UnCollectWithOriginIdBean;
 import com.hy.wanandroid.framework.presenter.BannerPresenter;
+import com.hy.wanandroid.framework.presenter.CollectPresenter;
+import com.hy.wanandroid.framework.presenter.UnCollectWithOriginIdPresenter;
 import com.hy.wanandroid.framework.view.BannerView;
+import com.hy.wanandroid.framework.view.CollectView;
+import com.hy.wanandroid.framework.view.UnCollectWithOriginIdView;
 import com.hy.wanandroid.ui.activity.ArticleActivity;
 import com.hy.wanandroid.ui.activity.MainActivity;
 import com.hy.wanandroid.ui.activity.SearchActivity;
@@ -28,6 +34,8 @@ import com.hy.wanandroid.framework.presenter.JsonPresenter;
 import com.hy.wanandroid.framework.view.FriendView;
 import com.hy.wanandroid.framework.view.JsonView;
 import com.hy.wanandroid.ui.toast.ToastUtils;
+import com.like.LikeButton;
+import com.like.OnLikeListener;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.SimpleMultiPurposeListener;
 import com.scwang.smartrefresh.layout.util.DensityUtil;
@@ -43,7 +51,7 @@ import static com.hy.wanandroid.constants.Constants.LINK;
  * 首页
  */
 public class HomeFragment extends BaseFragment implements View.OnClickListener,
-        JsonView, FriendView, BannerView {
+        JsonView, FriendView, BannerView, CollectView, UnCollectWithOriginIdView {
 
     private int mScrollY = 0;
 
@@ -63,6 +71,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,
     FriendPresenter friendPresenter;
     JsonPresenter jsonPresenter;
     BannerPresenter bannerPresenter;
+    CollectPresenter collectPresenter;
+    UnCollectWithOriginIdPresenter unCollectWithOriginIdPresenter;
     int page = 0;
     int pageCount = 0;
 
@@ -88,9 +98,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         friendRecyclerView.setLayoutManager(linearLayoutManager);
         friendList = new LinkedList<>();
-        friendAdapter = new BaseAdapter<FriendBean>(getActivity(), friendList, R.layout.item_friend_web) {
+        friendAdapter = new BaseAdapter<FriendBean>(getActivity(), friendList,
+                R.layout.item_friend_web) {
             @Override
-            protected void onBindViewHolder(BaseViewHolder holder, FriendBean item, int position) {
+            protected void onBindViewHolder(BaseViewHolder holder,
+                                            FriendBean item, int position) {
                 holder.setText(R.id.name, item.getName());
             }
         };
@@ -107,14 +119,33 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,
         artRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(),
                 DividerItemDecoration.VERTICAL));
         jsonList = new LinkedList<>();
-        jsonAdapter = new BaseAdapter<JsonBean.DatasBean>(getActivity(), jsonList, R.layout.item_home_art) {
+        jsonAdapter = new BaseAdapter<JsonBean.DatasBean>(getActivity(), jsonList,
+                R.layout.item_home_art) {
             @Override
-            protected void onBindViewHolder(BaseViewHolder holder, JsonBean.DatasBean item, int position) {
+            protected void onBindViewHolder(BaseViewHolder holder,
+                                            JsonBean.DatasBean item, int position) {
                 holder.setText(R.id.authorName, item.getAuthor())
                         .setText(R.id.belong2, item.getSuperChapterName()
                                 + "/" + item.getChapterName())
                         .setText(R.id.time, item.getNiceDate())
                         .setText(R.id.title, Html.fromHtml(item.getTitle()));
+                LikeButton likeButton = holder.getView(R.id.collectBtn);
+                if (item.isCollect()) {
+                    likeButton.setLiked(true);
+                } else {
+                    likeButton.setLiked(false);
+                }
+                likeButton.setOnLikeListener(new OnLikeListener() {
+                    @Override
+                    public void liked(LikeButton likeButton) {
+                        collectPresenter.postCollect(String.valueOf(item.getId()));
+                    }
+
+                    @Override
+                    public void unLiked(LikeButton likeButton) {
+                        unCollectWithOriginIdPresenter.postUnCollect(String.valueOf(item.getId()));
+                    }
+                });
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -176,6 +207,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,
         jsonPresenter.getJson(String.valueOf(page));
         bannerPresenter = new BannerPresenter(this);
         bannerPresenter.getBanner();
+        collectPresenter = new CollectPresenter(this);
+        unCollectWithOriginIdPresenter = new UnCollectWithOriginIdPresenter(this);
     }
 
     @Override
@@ -213,5 +246,15 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,
         for (int i = 0; i < banner.size(); i++) {
             Log.e("TAG", "---->----" + banner.get(i).getTitle());
         }
+    }
+
+    @Override
+    public void setCollect(CollectBean collect) {
+        ToastUtils.toast("收藏成功");
+    }
+
+    @Override
+    public void setUnCollect(UnCollectWithOriginIdBean unCollect) {
+        ToastUtils.toast("取消收藏成功");
     }
 }

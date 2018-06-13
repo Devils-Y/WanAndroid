@@ -8,6 +8,8 @@ import com.hy.wanandroid.net.HttpNet;
 
 import java.util.List;
 
+import retrofit2.Response;
+
 /**
  * author: huyin
  * date: 2018/6/12
@@ -26,13 +28,10 @@ public class BannerPresenter implements BaseListener<List<BannerBean>> {
     }
 
     @Override
-    public void onSuccess(List<BannerBean> bannerBeans) {
-        bannerView.setBanner(bannerBeans);
-    }
-
-    @Override
-    public void onFailed(Throwable t) {
-
+    public void onSuccess(Response<List<BannerBean>> t) {
+        if (t.body() != null) {
+            bannerView.setBanner(t.body());
+        }
     }
 
     @Override

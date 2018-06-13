@@ -8,6 +8,8 @@ import com.hy.wanandroid.net.HttpNet;
 
 import java.util.List;
 
+import retrofit2.Response;
+
 /**
  * author: huyin
  * date: 2018/6/7
@@ -21,17 +23,15 @@ public class FriendPresenter implements BaseListener<List<FriendBean>> {
     }
 
     public void getFriend() {
-        new BaseInterface().requestData(HttpNet.getInstantes().httpNet().getFriend(), this);
+        new BaseInterface().requestData(HttpNet.getInstantes().httpNet()
+                .getFriend(), this);
     }
 
     @Override
-    public void onSuccess(List<FriendBean> friendBeans) {
-        friendView.setFriend(friendBeans);
-    }
-
-    @Override
-    public void onFailed(Throwable t) {
-
+    public void onSuccess(Response<List<FriendBean>> t) {
+        if (t.body() != null) {
+            friendView.setFriend(t.body());
+        }
     }
 
     @Override

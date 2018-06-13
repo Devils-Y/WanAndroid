@@ -8,6 +8,8 @@ import com.hy.wanandroid.net.HttpNet;
 
 import java.util.List;
 
+import retrofit2.Response;
+
 /**
  * author: huyin
  * date: 2018/6/8
@@ -26,13 +28,10 @@ public class TreePresenter implements BaseListener<List<TreeBean>> {
     }
 
     @Override
-    public void onSuccess(List<TreeBean> treeList) {
-        treeView.setTree(treeList);
-    }
-
-    @Override
-    public void onFailed(Throwable t) {
-
+    public void onSuccess(Response<List<TreeBean>> t) {
+        if (t.body() != null) {
+            treeView.setTree(t.body());
+        }
     }
 
     @Override

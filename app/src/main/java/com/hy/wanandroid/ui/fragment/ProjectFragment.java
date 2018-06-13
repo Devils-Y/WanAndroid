@@ -154,7 +154,7 @@ public class ProjectFragment extends BaseFragment implements
     }
 
     /**
-     * 接收到信息修改成功广播并进行处理
+     * 接收到模式修改成功广播并进行处理
      */
     BroadcastReceiver mClearInfoSuccessReceiver = new BroadcastReceiver() {
         @Override

@@ -6,6 +6,8 @@ import com.hy.wanandroid.net.BaseInterface;
 import com.hy.wanandroid.net.BaseListener;
 import com.hy.wanandroid.net.HttpNet;
 
+import retrofit2.Response;
+
 /**
  * author: huyin
  * date: 2018/6/7
@@ -24,13 +26,10 @@ public class JsonPresenter implements BaseListener<JsonBean> {
     }
 
     @Override
-    public void onSuccess(JsonBean jsonBean) {
-        jsonView.setJson(jsonBean);
-    }
-
-    @Override
-    public void onFailed(Throwable t) {
-
+    public void onSuccess(Response<JsonBean> t) {
+        if (t.body() != null) {
+            jsonView.setJson(t.body());
+        }
     }
 
     @Override

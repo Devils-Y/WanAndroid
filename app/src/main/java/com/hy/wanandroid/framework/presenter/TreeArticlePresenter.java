@@ -6,6 +6,8 @@ import com.hy.wanandroid.net.BaseInterface;
 import com.hy.wanandroid.net.BaseListener;
 import com.hy.wanandroid.net.HttpNet;
 
+import retrofit2.Response;
+
 /**
  * author: huyin
  * date: 2018/6/10
@@ -24,13 +26,10 @@ public class TreeArticlePresenter implements BaseListener<TreeArticleBean> {
     }
 
     @Override
-    public void onSuccess(TreeArticleBean treeArticleBean) {
-        treeArticleView.setTreeArticle(treeArticleBean);
-    }
-
-    @Override
-    public void onFailed(Throwable t) {
-
+    public void onSuccess(Response<TreeArticleBean> t) {
+        if (t.body() != null) {
+            treeArticleView.setTreeArticle(t.body());
+        }
     }
 
     @Override

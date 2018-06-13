@@ -4,9 +4,9 @@ import java.util.List;
 
 /**
  * author: huyin
- * date: 2018/6/12
+ * date: 2018/6/13
  */
-public class LoginBean {
+public class RegisterBean {
 
     private String email;
     private String icon;

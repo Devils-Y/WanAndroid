@@ -1,8 +1,16 @@
 package com.hy.wanandroid.net;
 
+import com.hy.wanandroid.application.WA_Application;
 import com.hy.wanandroid.gson.gsonconverter.JsonConverterFactory;
+import com.hy.wanandroid.net.cookie.ClearableCookieJar;
+import com.hy.wanandroid.net.cookie.PersistentCookieJar;
+import com.hy.wanandroid.net.cookie.cache.SetCookieCache;
+import com.hy.wanandroid.net.cookie.persistence.SharedPrefsCookiePersistor;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
+import java.net.CookieHandler;
+import java.net.CookieManager;
+import java.net.CookiePolicy;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -42,6 +50,10 @@ public class HttpNet {
      */
     public APIInterface httpNet(String baseUrl) {
         if (mRetrofit == null) {
+            ClearableCookieJar cookieJar =
+                    new PersistentCookieJar(new SetCookieCache(),
+                            new SharedPrefsCookiePersistor(WA_Application.getContext()));
+
             OkHttpClient.Builder builder = new OkHttpClient.Builder();
             builder.addInterceptor(new NetLogInterceptor());
             /**
@@ -61,7 +73,7 @@ public class HttpNet {
              */
             builder.retryOnConnectionFailure(true);
 
-            mOkHttpClient = builder.build();
+            mOkHttpClient = builder.cookieJar(cookieJar).build();
             mRetrofit = new Retrofit.Builder()
                     .baseUrl(baseUrl)
                     .client(mOkHttpClient)
@@ -74,6 +86,10 @@ public class HttpNet {
 
     public APIInterface httpNet() {
         if (mRetrofit == null) {
+            ClearableCookieJar cookieJar =
+                    new PersistentCookieJar(new SetCookieCache(),
+                            new SharedPrefsCookiePersistor(WA_Application.getContext()));
+
             OkHttpClient.Builder builder = new OkHttpClient.Builder();
             builder.addInterceptor(new NetLogInterceptor());
             /**
@@ -93,7 +109,7 @@ public class HttpNet {
              */
             builder.retryOnConnectionFailure(true);
 
-            mOkHttpClient = builder.build();
+            mOkHttpClient = builder.cookieJar(cookieJar).build();
             mRetrofit = new Retrofit.Builder()
                     .baseUrl(APIInterface.url)
                     .client(mOkHttpClient)

@@ -6,6 +6,8 @@ import com.hy.wanandroid.net.BaseInterface;
 import com.hy.wanandroid.net.BaseListener;
 import com.hy.wanandroid.net.HttpNet;
 
+import retrofit2.Response;
+
 /**
  * author: huyin
  * date: 2018/6/8
@@ -24,13 +26,10 @@ public class ProjectListPresenter implements BaseListener<ProjectListBean> {
     }
 
     @Override
-    public void onSuccess(ProjectListBean projectListBean) {
-        projectListView.setProjectList(projectListBean);
-    }
-
-    @Override
-    public void onFailed(Throwable t) {
-
+    public void onSuccess(Response<ProjectListBean> t) {
+        if (t.body() != null) {
+            projectListView.setProjectList(t.body());
+        }
     }
 
     @Override
