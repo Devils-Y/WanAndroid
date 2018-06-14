@@ -33,6 +33,11 @@ public class RegisterPresenter implements BaseListener<RegisterBean> {
     }
 
     @Override
+    public void onSuccess() {
+
+    }
+
+    @Override
     public void onError(String errorString) {
 
     }

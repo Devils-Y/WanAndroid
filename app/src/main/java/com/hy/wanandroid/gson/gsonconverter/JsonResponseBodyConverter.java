@@ -46,8 +46,12 @@ public class JsonResponseBodyConverter<T> implements Converter<ResponseBody, T> 
             if (jsonObject.getString("errorCode") != null) {
                 ErrorCode.code = Integer.valueOf(jsonObject.getString("errorCode"));
                 if (ErrorCode.isSuccess()) {
+                    Log.e("TAG","--->---");
                     if (jsonObject.getString("data") != null) {
+                        Log.e("TAG","---这里---");
                         t = GsonHelper.getDeserializer().fromJson(jsonObject.getString("data"), type);
+                    }else{
+                        Log.e("TAG","---==null---");
                     }
                 } else {
                     ToastUtils.toast(jsonObject.getString("errorMsg"));

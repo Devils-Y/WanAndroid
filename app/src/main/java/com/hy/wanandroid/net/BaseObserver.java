@@ -21,7 +21,6 @@ public abstract class BaseObserver<T> implements Observer<T> {
 
     @Override
     public void onSubscribe(Disposable d) {
-
     }
 
     @Override
@@ -50,9 +49,12 @@ public abstract class BaseObserver<T> implements Observer<T> {
 
     @Override
     public void onComplete() {
+        onSuccess();
     }
 
     public abstract void callNext(Response<T> t);
+
+    public abstract void onSuccess();
 
     public abstract void error(String s);
 }

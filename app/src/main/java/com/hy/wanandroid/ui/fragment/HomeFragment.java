@@ -34,6 +34,7 @@ import com.hy.wanandroid.framework.presenter.JsonPresenter;
 import com.hy.wanandroid.framework.view.FriendView;
 import com.hy.wanandroid.framework.view.JsonView;
 import com.hy.wanandroid.ui.toast.ToastUtils;
+import com.hy.wanandroid.ui.view.ColorHeadImage;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -104,6 +105,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,
             protected void onBindViewHolder(BaseViewHolder holder,
                                             FriendBean item, int position) {
                 holder.setText(R.id.name, item.getName());
+                ColorHeadImage colorHeadImage = holder.getView(R.id.icon);
+                colorHeadImage.setName(item.getName());
             }
         };
         friendRecyclerView.setAdapter(friendAdapter);
@@ -249,12 +252,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,
     }
 
     @Override
-    public void setCollect(CollectBean collect) {
+    public void setCollect() {
         ToastUtils.toast("收藏成功");
     }
 
     @Override
-    public void setUnCollect(UnCollectWithOriginIdBean unCollect) {
+    public void setUnCollect() {
         ToastUtils.toast("取消收藏成功");
     }
 }

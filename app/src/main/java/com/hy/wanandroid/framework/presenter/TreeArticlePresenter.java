@@ -33,6 +33,11 @@ public class TreeArticlePresenter implements BaseListener<TreeArticleBean> {
     }
 
     @Override
+    public void onSuccess() {
+
+    }
+
+    @Override
     public void onError(String errorString) {
 
     }

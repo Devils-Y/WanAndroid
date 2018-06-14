@@ -7,5 +7,5 @@ import com.hy.wanandroid.bean.CollectBean;
  * date: 2018/6/13
  */
 public interface CollectView {
-    void setCollect(CollectBean collect);
+    void setCollect();
 }

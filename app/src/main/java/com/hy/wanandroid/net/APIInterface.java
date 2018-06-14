@@ -7,14 +7,17 @@ import com.hy.wanandroid.bean.CollectBean;
 import com.hy.wanandroid.bean.CollectListBean;
 import com.hy.wanandroid.bean.CollectOutsideTheStationBean;
 import com.hy.wanandroid.bean.FriendBean;
+import com.hy.wanandroid.bean.HotKeyBean;
 import com.hy.wanandroid.bean.JsonBean;
 import com.hy.wanandroid.bean.LoginBean;
 import com.hy.wanandroid.bean.NaviBean;
 import com.hy.wanandroid.bean.ProjectBean;
 import com.hy.wanandroid.bean.ProjectListBean;
+import com.hy.wanandroid.bean.QueryBean;
 import com.hy.wanandroid.bean.RegisterBean;
 import com.hy.wanandroid.bean.TreeArticleBean;
 import com.hy.wanandroid.bean.TreeBean;
+import com.hy.wanandroid.bean.UnCollectBean;
 import com.hy.wanandroid.bean.UnCollectWithOriginIdBean;
 
 import java.util.List;
@@ -56,6 +59,14 @@ public interface APIInterface {
 
     @GET(friendUrl)
     Observable<Response<List<FriendBean>>> getFriend();
+
+    /**
+     * 搜索热词
+     */
+    String hotKeyUrl = "hotkey/json";
+    @GET(hotKeyUrl)
+    Observable<Response<List<HotKeyBean>>> getHotKey();
+
 
     /**
      * 体系数据
@@ -149,7 +160,32 @@ public interface APIInterface {
             @Field("author") String author,
             @Field("link") String link);
 
-    String UnCollectWithOriginIdUrl = "lg/uncollect_originId/{id}/json";
-    @POST(UnCollectWithOriginIdUrl)
-    Observable<Response<UnCollectWithOriginIdBean>> postUnCollect(@Path("id") String id);
+    /**
+     * 取消收藏
+     * 文章列表
+     */
+    String unCollectWithOriginIdUrl = "lg/uncollect_originId/{id}/json";
+
+    @POST(unCollectWithOriginIdUrl)
+    Observable<Response<UnCollectWithOriginIdBean>> postUnCollectWithOriginId(@Path("id") String id);
+
+    /**
+     * 取消收藏
+     * 我的收藏页面
+     */
+    String uncollectUrl = "lg/uncollect/{id}/json";
+
+    @POST(uncollectUrl)
+    @FormUrlEncoded
+    Observable<Response<UnCollectBean>> postUnCollect(@Path("id") String id,
+                                                      @Field("originId") String originId);
+
+    /**
+     * 搜索
+     */
+    String queryUrl = "article/query/{page}/json";
+    @POST(queryUrl)
+    @FormUrlEncoded
+    Observable<Response<QueryBean>> postQuery(@Path("page") String page,
+                                              @Field("k") String keyword);
 }

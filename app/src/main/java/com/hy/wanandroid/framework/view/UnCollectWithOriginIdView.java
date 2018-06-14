@@ -7,5 +7,5 @@ import com.hy.wanandroid.bean.UnCollectWithOriginIdBean;
  * date: 2018/6/13
  */
 public interface UnCollectWithOriginIdView {
-    void setUnCollect(UnCollectWithOriginIdBean unCollect);
+    void setUnCollect();
 }

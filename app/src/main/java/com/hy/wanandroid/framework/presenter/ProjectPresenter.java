@@ -35,6 +35,11 @@ public class ProjectPresenter implements BaseListener<List<ProjectBean>> {
     }
 
     @Override
+    public void onSuccess() {
+
+    }
+
+    @Override
     public void onError(String errorString) {
 
     }

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginTop="10dp"
+    android:background="@drawable/border_radius"
+    android:paddingBottom="10dp"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingTop="10dp">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="asasas"
+        android:textColor="@android:color/black"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/authorName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:layout_marginTop="5dp"
+        android:text="asasas"
+        android:textColor="@android:color/black"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/authorName"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:text="刚刚"
+        android:textColor="@android:color/black"
+        android:textSize="13sp" />
+
+
+    <com.like.LikeButton
+        android:id="@+id/collectBtn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/title"
+        app:anim_scale_factor="2"
+        app:circle_end_color="@color/colorAccent"
+        app:circle_start_color="@color/cerulean"
+        app:dots_primary_color="@color/colorAccent"
+        app:dots_secondary_color="@color/cerulean"
+        app:icon_size="25dp"
+        app:icon_type="heart"
+        app:like_drawable="@drawable/heart_on"
+        app:liked="true"
+        app:unlike_drawable="@drawable/heart_off" />
+
+</RelativeLayout>

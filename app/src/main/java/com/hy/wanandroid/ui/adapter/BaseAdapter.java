@@ -83,4 +83,9 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder
     public int size(){
         return mData.size();
     }
+
+    public void remove(int position){
+        mData.remove(position);
+        notifyDataSetChanged();
+    }
 }

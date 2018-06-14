@@ -23,6 +23,11 @@ public class BaseInterface {
                     }
 
                     @Override
+                    public void onSuccess() {
+                        baseListener.onSuccess();
+                    }
+
+                    @Override
                     public void error(String s) {
                         baseListener.onError(s);
                     }

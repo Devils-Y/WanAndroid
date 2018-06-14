@@ -35,6 +35,11 @@ public class TreePresenter implements BaseListener<List<TreeBean>> {
     }
 
     @Override
+    public void onSuccess() {
+
+    }
+
+    @Override
     public void onError(String errorString) {
 
     }

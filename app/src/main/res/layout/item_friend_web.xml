@@ -4,11 +4,10 @@
     android:gravity="center"
     android:layout_height="wrap_content">
 
-    <ImageView
+    <com.hy.wanandroid.ui.view.ColorHeadImage
         android:id="@+id/icon"
         android:layout_width="60dp"
         android:layout_margin="10dp"
-        android:background="@color/gray"
         android:layout_centerHorizontal="true"
         android:layout_height="60dp" />
 

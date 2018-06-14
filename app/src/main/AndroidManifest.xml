@@ -41,6 +41,9 @@
         <activity
             android:name=".ui.activity.CollectListActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.SearchListActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

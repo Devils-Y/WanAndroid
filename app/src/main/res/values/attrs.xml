@@ -11,4 +11,9 @@
             <flag name="italic" value="2" />
         </attr>
     </declare-styleable>
+
+    <declare-styleable name="ColorHeadImage">
+        <attr name="text" format="string"/>
+        <attr name="radius" format=""/>
+    </declare-styleable>
 </resources>

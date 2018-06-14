@@ -33,6 +33,11 @@ public class JsonPresenter implements BaseListener<JsonBean> {
     }
 
     @Override
+    public void onSuccess() {
+
+    }
+
+    @Override
     public void onError(String errorString) {
 
     }

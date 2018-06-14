@@ -35,6 +35,11 @@ public class FriendPresenter implements BaseListener<List<FriendBean>> {
     }
 
     @Override
+    public void onSuccess() {
+
+    }
+
+    @Override
     public void onError(String errorString) {
 
     }

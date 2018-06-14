@@ -12,7 +12,7 @@ import retrofit2.Response;
  * author: huyin
  * date: 2018/6/13
  */
-public class CollectPresenter implements BaseListener<CollectBean> {
+public class CollectPresenter implements BaseListener<Void> {
 
     CollectView collectView;
 
@@ -31,10 +31,12 @@ public class CollectPresenter implements BaseListener<CollectBean> {
     }
 
     @Override
-    public void onSuccess(Response<CollectBean> t) {
-        if (t.body() != null) {
-            collectView.setCollect(t.body());
-        }
+    public void onSuccess(Response<Void> t) {
+    }
+
+    @Override
+    public void onSuccess() {
+        collectView.setCollect();
     }
 
     @Override

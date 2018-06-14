@@ -12,5 +12,6 @@ public class Constants {
     public static final String PROJECTSTYLE = "projectStyle";
     public static final String STYLETYPE = "styleType";
     public static final String LOGIN_SUCCESS = "login_success";
+    public static final String KEYWORD = "keyword";
 
 }

@@ -35,6 +35,11 @@ public class BannerPresenter implements BaseListener<List<BannerBean>> {
     }
 
     @Override
+    public void onSuccess() {
+
+    }
+
+    @Override
     public void onError(String errorString) {
 
     }

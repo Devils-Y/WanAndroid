@@ -33,6 +33,11 @@ public class LoginPresenter implements BaseListener<LoginBean> {
     }
 
     @Override
+    public void onSuccess() {
+
+    }
+
+    @Override
     public void onError(String errorString) {
 
     }

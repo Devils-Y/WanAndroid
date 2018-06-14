@@ -32,8 +32,13 @@ public class CollectListPresenter implements BaseListener<CollectListBean> {
     @Override
     public void onSuccess(Response<CollectListBean> t) {
         if (t.body() != null) {
-            Log.e("TAG", "--->---" + t.body());
+            collectListView.setCollectList(t.body());
         }
+    }
+
+    @Override
+    public void onSuccess() {
+
     }
 
     @Override

@@ -26,12 +26,17 @@ public class UnCollectWithOriginIdPresenter implements BaseListener<UnCollectWit
      */
     public void postUnCollect(String id){
         new BaseInterface().requestData(HttpNet.getInstantes().httpNet()
-                .postUnCollect(id),this);
+                .postUnCollectWithOriginId(id),this);
     }
 
     @Override
     public void onSuccess(Response<UnCollectWithOriginIdBean> t) {
 
+    }
+
+    @Override
+    public void onSuccess() {
+        unCollectWithOriginIdView.setUnCollect();
     }
 
     @Override
