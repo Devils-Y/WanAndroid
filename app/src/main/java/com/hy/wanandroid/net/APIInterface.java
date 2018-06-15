@@ -91,7 +91,7 @@ public interface APIInterface {
     String naviUrl = "navi/json";
 
     @GET(naviUrl)
-    Observable<Response<NaviBean>> getNavi();
+    Observable<Response<List<NaviBean>>> getNavi();
 
     /**
      * 项目分类

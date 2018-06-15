@@ -6,7 +6,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
-import android.util.Log;
 import android.view.View;
 
 import com.hy.wanandroid.R;
@@ -16,11 +15,7 @@ import com.hy.wanandroid.framework.view.TreeArticleView;
 import com.hy.wanandroid.ui.adapter.BaseAdapter;
 import com.hy.wanandroid.ui.adapter.BaseViewHolder;
 import com.hy.wanandroid.ui.toast.ToastUtils;
-import com.scwang.smartrefresh.layout.api.RefreshFooter;
-import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.constant.RefreshState;
-import com.scwang.smartrefresh.layout.listener.OnMultiPurposeListener;
 import com.scwang.smartrefresh.layout.listener.SimpleMultiPurposeListener;
 
 import java.util.LinkedList;
@@ -92,7 +87,7 @@ public class ArticleListActivity extends BaseActivity implements TreeArticleView
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(ArticleListActivity.this, ArticleActivity.class);
+                        Intent intent = new Intent(ArticleListActivity.this, WebActivity.class);
                         intent.putExtra(LINK, item.getLink());
                         startActivity(intent);
                     }

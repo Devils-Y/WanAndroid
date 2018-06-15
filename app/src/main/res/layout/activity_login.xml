@@ -22,10 +22,10 @@
             <ImageView
                 android:id="@+id/logonIv"
                 android:layout_width="100dp"
-                android:layout_height="79dp"
+                android:layout_height="100dp"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="150dp"
-                android:background="@mipmap/logo" />
+                android:layout_marginTop="130dp"
+                android:background="@mipmap/round_logo" />
 
             <TextView
                 android:id="@+id/userNameTv"

@@ -11,10 +11,10 @@
         android:icon="@drawable/ic_dashboard_black"
         android:title="@string/tree_txt" />
 
-    <!--<item-->
-    <!--android:id="@+id/navigation_navigation"-->
-    <!--android:icon="@drawable/ic_whatshot_black"-->
-    <!--android:title="@string/navigation_txt"/>-->
+    <item
+        android:id="@+id/navigation_navigation"
+        android:icon="@drawable/ic_whatshot_black"
+        android:title="@string/navigation_txt" />
 
     <item
         android:id="@+id/navigation_project"

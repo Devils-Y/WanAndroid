@@ -1,7 +1,6 @@
 package com.hy.wanandroid.ui.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -9,12 +8,8 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.hy.wanandroid.R;
 import com.hy.wanandroid.bean.ProjectListBean;
-import com.hy.wanandroid.ui.activity.ArticleActivity;
-import com.hy.wanandroid.ui.fragment.ProjectFragment;
 
 import java.util.List;
-
-import static com.hy.wanandroid.constants.Constants.LINK;
 
 /**
  * author: huyin

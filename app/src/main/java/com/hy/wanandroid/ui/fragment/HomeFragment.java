@@ -14,16 +14,14 @@ import android.widget.ImageView;
 
 import com.hy.wanandroid.R;
 import com.hy.wanandroid.bean.BannerBean;
-import com.hy.wanandroid.bean.CollectBean;
-import com.hy.wanandroid.bean.UnCollectWithOriginIdBean;
 import com.hy.wanandroid.framework.presenter.BannerPresenter;
 import com.hy.wanandroid.framework.presenter.CollectPresenter;
 import com.hy.wanandroid.framework.presenter.UnCollectWithOriginIdPresenter;
 import com.hy.wanandroid.framework.view.BannerView;
 import com.hy.wanandroid.framework.view.CollectView;
 import com.hy.wanandroid.framework.view.UnCollectWithOriginIdView;
-import com.hy.wanandroid.ui.activity.ArticleActivity;
-import com.hy.wanandroid.ui.activity.MainActivity;
+import com.hy.wanandroid.ui.activity.ArticleListActivity;
+import com.hy.wanandroid.ui.activity.WebActivity;
 import com.hy.wanandroid.ui.activity.SearchActivity;
 import com.hy.wanandroid.ui.adapter.BaseAdapter;
 import com.hy.wanandroid.ui.adapter.BaseViewHolder;
@@ -35,12 +33,15 @@ import com.hy.wanandroid.framework.view.FriendView;
 import com.hy.wanandroid.framework.view.JsonView;
 import com.hy.wanandroid.ui.toast.ToastUtils;
 import com.hy.wanandroid.ui.view.ColorHeadImage;
+import com.hy.wanandroid.util.banner.GlideImageLoader;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.SimpleMultiPurposeListener;
 import com.scwang.smartrefresh.layout.util.DensityUtil;
+import com.youth.banner.Banner;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -52,13 +53,15 @@ import static com.hy.wanandroid.constants.Constants.LINK;
  * 首页
  */
 public class HomeFragment extends BaseFragment implements View.OnClickListener,
-        JsonView, FriendView, BannerView, CollectView, UnCollectWithOriginIdView {
+        JsonView, FriendView, BannerView, CollectView, UnCollectWithOriginIdView,
+        GlideImageLoader.OnImageClickListener{
 
     private int mScrollY = 0;
 
     ImageView searchView;
     Toolbar toolbar;
     NestedScrollView scrollView;
+    Banner mBanner;
     RefreshLayout refreshLayout;
     RecyclerView friendRecyclerView;
     RecyclerView artRecyclerView;
@@ -90,11 +93,23 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,
 
         searchView = getContentView().findViewById(R.id.searchView);
         scrollView = getContentView().findViewById(R.id.scrollView);
+        mBanner = getContentView().findViewById(R.id.banner);
         refreshLayout = getContentView().findViewById(R.id.refreshLayout);
         friendRecyclerView = getContentView().findViewById(R.id.friendRecyclerView);
         artRecyclerView = getContentView().findViewById(R.id.artRecyclerView);
         searchView.setOnClickListener(this);
+        /**
+         * banner
+         */
 
+        //设置轮播时间
+        mBanner.setDelayTime(3000);
+        GlideImageLoader glideImageLoader = new GlideImageLoader();
+        mBanner.setImageLoader(glideImageLoader);
+        glideImageLoader.setOnImageClickListener(this);
+        /**
+         * 常用网址
+         */
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         friendRecyclerView.setLayoutManager(linearLayoutManager);
@@ -107,10 +122,21 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,
                 holder.setText(R.id.name, item.getName());
                 ColorHeadImage colorHeadImage = holder.getView(R.id.icon);
                 colorHeadImage.setName(item.getName());
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getActivity(), WebActivity.class);
+                        intent.putExtra(LINK, item.getLink());
+                        startActivity(intent);
+                    }
+                });
             }
         };
         friendRecyclerView.setAdapter(friendAdapter);
 
+        /**
+         * 首页列表数据
+         */
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setSmoothScrollbarEnabled(true);
         layoutManager.setAutoMeasureEnabled(true);
@@ -152,7 +178,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(getActivity(), ArticleActivity.class);
+                        Intent intent = new Intent(getActivity(), WebActivity.class);
                         intent.putExtra(LINK, item.getLink());
                         startActivity(intent);
                     }
@@ -246,9 +272,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,
 
     @Override
     public void setBanner(List<BannerBean> banner) {
-        for (int i = 0; i < banner.size(); i++) {
-            Log.e("TAG", "---->----" + banner.get(i).getTitle());
-        }
+        mBanner.setImages(banner).start();
+
     }
 
     @Override
@@ -259,5 +284,26 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,
     @Override
     public void setUnCollect() {
         ToastUtils.toast("取消收藏成功");
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        //开始轮播
+        mBanner.startAutoPlay();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        //结束轮播
+        mBanner.stopAutoPlay();
+    }
+
+    @Override
+    public void onImageClick(String link) {
+        Intent intent = new Intent(getActivity(), WebActivity.class);
+        intent.putExtra(LINK, link);
+        startActivity(intent);
     }
 }

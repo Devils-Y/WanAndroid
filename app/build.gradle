@@ -40,4 +40,5 @@ dependencies {
     implementation 'com.google.android:flexbox:1.0.0'
     implementation 'com.github.franmontiel:PersistentCookieJar:v1.0.1'
     implementation 'com.github.jd-alexander:LikeButton:0.2.3'
+    implementation 'com.youth.banner:banner:1.4.10'
 }

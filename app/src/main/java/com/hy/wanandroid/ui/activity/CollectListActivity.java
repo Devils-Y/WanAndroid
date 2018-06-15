@@ -10,14 +10,10 @@ import android.view.View;
 
 import com.hy.wanandroid.R;
 import com.hy.wanandroid.bean.CollectListBean;
-import com.hy.wanandroid.bean.UnCollectBean;
 import com.hy.wanandroid.framework.presenter.CollectListPresenter;
 import com.hy.wanandroid.framework.presenter.UnCollectPresenter;
-import com.hy.wanandroid.framework.presenter.UnCollectWithOriginIdPresenter;
 import com.hy.wanandroid.framework.view.CollectListView;
 import com.hy.wanandroid.framework.view.UnCollectView;
-import com.hy.wanandroid.framework.view.UnCollectWithOriginIdView;
-import com.hy.wanandroid.rx.RxBus;
 import com.hy.wanandroid.ui.adapter.BaseAdapter;
 import com.hy.wanandroid.ui.adapter.BaseViewHolder;
 import com.hy.wanandroid.ui.toast.ToastUtils;
@@ -102,7 +98,7 @@ public class CollectListActivity extends BaseActivity implements
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(CollectListActivity.this,
-                                ArticleActivity.class);
+                                WebActivity.class);
                         intent.putExtra(LINK, item.getLink());
                         startActivity(intent);
                     }

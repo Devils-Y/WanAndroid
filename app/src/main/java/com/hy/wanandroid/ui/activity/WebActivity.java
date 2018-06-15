@@ -22,7 +22,7 @@ import static com.hy.wanandroid.constants.Constants.LINK;
  * author: huyin
  * date: 2018/6/8
  */
-public class ArticleActivity extends BaseActivity {
+public class WebActivity extends BaseActivity {
 
     String linkUrl;
     Toolbar toolbar;
@@ -77,7 +77,6 @@ public class ArticleActivity extends BaseActivity {
             //获取网站标题
             @Override
             public void onReceivedTitle(WebView view, String title) {
-                System.out.println("标题在这里");
                 toolbar.setTitle(title);
             }
 
@@ -100,7 +99,6 @@ public class ArticleActivity extends BaseActivity {
             //设置加载前的函数
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
-                System.out.println("开始加载了");
 //                beginLoading.setText("开始加载了");
 
             }

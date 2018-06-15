@@ -1,15 +1,18 @@
 package com.hy.wanandroid.ui.view;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 
-import com.scwang.smartrefresh.layout.util.DesignUtil;
+import com.hy.wanandroid.R;
 
 import java.util.Random;
 
@@ -23,6 +26,8 @@ import java.util.Random;
 public class ColorHeadImage extends View {
 
     private static final String TAG = ColorHeadImage.class.getName();
+
+    Context mContext;
     /**
      * 背景的画笔
      */
@@ -34,77 +39,80 @@ public class ColorHeadImage extends View {
     /**
      * 字体大小
      */
-    int mTextSize = 20;
-
-    Context mContext;
+    int mTextSize;
     /**
-     * 名字
+     * 文字
      */
     String mName;
     /**
      * 半径
      */
-    float radius = 50;
+    int radius = 0;
+    /**
+     * 文字绘制范围
+     */
+    private Rect mBound;
 
     public ColorHeadImage(Context context) {
         super(context);
         this.mContext = context;
         this.mName = "";
+        initAttr(null);
     }
 
     public ColorHeadImage(Context context, String name) {
-        super(context, null);
+        super(context);
         this.mContext = context;
         this.mName = name;
+        initAttr(null);
     }
 
     public ColorHeadImage(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.mContext = context;
         this.mName = "";
+        initAttr(attrs);
     }
 
     public ColorHeadImage(Context context, @Nullable AttributeSet attrs, String name) {
-        super(context, attrs, -1);
+        super(context, attrs);
         this.mContext = context;
         this.mName = name;
+        initAttr(attrs);
     }
 
     public ColorHeadImage(Context context, @Nullable AttributeSet attrs, int defStyleAttr, String name) {
         super(context, attrs, defStyleAttr);
         this.mContext = context;
         this.mName = name;
+        initAttr(attrs);
+    }
+
+    private void initAttr(AttributeSet attrs) {
+        TypedArray array = mContext.obtainStyledAttributes(attrs, R.styleable.ColorHeadImage);
+        mName = array.getString(R.styleable.ColorHeadImage_text);
+        radius = array.getDimensionPixelSize(R.styleable.ColorHeadImage_radius, 30);
+        mTextSize = array.getDimensionPixelSize(R.styleable.ColorHeadImage_nameTextSize, 20);
+        array.recycle();
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        int width = MeasureSpec.getSize(widthMeasureSpec);
-        int height = MeasureSpec.getSize(heightMeasureSpec);
-        /**
-         * 判断必须相等
-         */
-        if (width == height) {
-            radius = width / 2;
-        } else {
-            try {
-            } catch (Exception e) {
-                Log.e(TAG, "Length and width must be equal");
-                e.printStackTrace();
-            }
-        }
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-    }
-
-    @Override
-    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-        super.onLayout(changed, left, top, right, bottom);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
+        /*
+         * 初始化画笔
+         */
+        mBound = new Rect();
         bgPaint = new Paint();
+        /**
+         * 随机变换颜色
+         */
         Random random = new Random();
         int r = random.nextInt(256);
         int g = random.nextInt(256);
@@ -116,10 +124,21 @@ public class ColorHeadImage extends View {
         mPaint = new Paint();
         mPaint.setColor(Color.WHITE);
         mPaint.setTextSize(mTextSize);
+        mPaint.getTextBounds(mName, 0, 1, mBound);
+
+        if (radius == 0) {
+            if (getWidth() <= getHeight()) {
+                radius = getWidth() / 2;
+            } else if (getWidth() > getHeight()) {
+                radius = getHeight() / 2;
+            }
+        }
 
         canvas.drawCircle(radius, radius, radius, bgPaint);
 
-        canvas.drawText(mName, 0, 1, radius, radius, mPaint);
+        canvas.drawText(mName, 0, 1,
+                radius - mBound.width() / 2,
+                radius + mBound.height() / 2, mPaint);
     }
 
     /**

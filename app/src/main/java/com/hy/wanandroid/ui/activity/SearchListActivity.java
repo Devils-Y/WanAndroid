@@ -6,7 +6,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
-import android.util.Log;
 import android.view.View;
 
 import com.hy.wanandroid.R;
@@ -110,7 +109,7 @@ public class SearchListActivity extends BaseActivity implements
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(SearchListActivity.this,
-                                ArticleActivity.class);
+                                WebActivity.class);
                         intent.putExtra(LINK, item.getLink());
                         startActivity(intent);
                     }

@@ -73,6 +73,9 @@ public class MainActivity extends BaseActivity {
                 case R.id.navigation_tree:
                     toTreeFragment();
                     return true;
+                case R.id.navigation_navigation:
+                    toNavigationFragment();
+                    return true;
                 case R.id.navigation_project:
                     toProjectFragment();
                     return true;

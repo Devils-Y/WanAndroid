@@ -7,7 +7,6 @@ import com.hy.wanandroid.framework.view.CollectListView;
 import com.hy.wanandroid.net.BaseInterface;
 import com.hy.wanandroid.net.BaseListener;
 import com.hy.wanandroid.net.HttpNet;
-import com.hy.wanandroid.rx.RxBus;
 
 import io.reactivex.functions.Consumer;
 import retrofit2.Response;

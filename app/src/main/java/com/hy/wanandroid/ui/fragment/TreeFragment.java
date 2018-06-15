@@ -27,6 +27,7 @@ import com.hy.wanandroid.ui.adapter.BaseViewHolder;
 import com.hy.wanandroid.bean.TreeBean;
 import com.hy.wanandroid.framework.presenter.TreePresenter;
 import com.hy.wanandroid.framework.view.TreeView;
+import com.hy.wanandroid.ui.view.ColorHeadImage;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -46,6 +47,7 @@ public class TreeFragment extends BaseFragment implements View.OnClickListener, 
     ImageView changListStyle;
     RecyclerView treeRecyclerView;
     RecyclerView detailRecyclerView;
+    TextView title;
     LinearLayout twoRecyclerViewLayout;
     RecyclerView treeListRecyclerView;
     List<TreeBean> treeList;
@@ -76,6 +78,7 @@ public class TreeFragment extends BaseFragment implements View.OnClickListener, 
         changListStyle = getContentView().findViewById(R.id.changListStyle);
         changListStyle.setOnClickListener(this);
         treeRecyclerView = getContentView().findViewById(R.id.treeRecyclerView);
+        title = getContentView().findViewById(R.id.title);
         detailRecyclerView = getContentView().findViewById(R.id.detailRecyclerView);
 
         twoRecyclerViewLayout = getContentView().findViewById(R.id.twoRecyclerViewLayout);
@@ -100,6 +103,7 @@ public class TreeFragment extends BaseFragment implements View.OnClickListener, 
                     public void onClick(View v) {
                         id = item.getId();
                         childrenAdapter.clear();
+                        title.setText(item.getName());
                         treePresenter.getTree();
                     }
                 });
@@ -116,6 +120,8 @@ public class TreeFragment extends BaseFragment implements View.OnClickListener, 
             protected void onBindViewHolder(BaseViewHolder holder,
                                             TreeBean.ChildrenBean item, int position) {
                 holder.setText(R.id.name, item.getName());
+                ColorHeadImage colorHeadImage = holder.getView(R.id.icon);
+                colorHeadImage.setName(item.getName());
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -233,6 +239,7 @@ public class TreeFragment extends BaseFragment implements View.OnClickListener, 
                      * id 赋值为 0的意义是先显示左侧列表
                      */
                     id = 0;
+                    title.setText("");
                     childrenAdapter.clear();
                 }
                 if (treeListAdapter.size() != 0) {

@@ -14,6 +14,7 @@
 
     <declare-styleable name="ColorHeadImage">
         <attr name="text" format="string"/>
-        <attr name="radius" format=""/>
+        <attr name="radius" format="dimension" />
+        <attr name="nameTextSize" format="dimension" />
     </declare-styleable>
 </resources>

@@ -41,14 +41,19 @@
                         app:layout_scrollFlags="scroll|exitUntilCollapsed"
                         app:titleEnabled="false">
 
-                        <RelativeLayout
+                        <com.youth.banner.Banner
+                            android:id="@+id/banner"
                             android:layout_width="match_parent"
-                            android:layout_height="200dp"
-                            android:background="@color/stack" />
+                            android:layout_height="200dp"/>
 
                     </android.support.design.widget.CollapsingToolbarLayout>
 
                 </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/stack"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -60,7 +65,12 @@
                     android:id="@+id/friendRecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
-                    android:scrollbars="horizontal" />
+                    android:scrollbars="none" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/stack"/>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/artRecyclerView"

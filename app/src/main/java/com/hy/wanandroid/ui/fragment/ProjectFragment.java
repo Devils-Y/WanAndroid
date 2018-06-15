@@ -6,25 +6,16 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Adapter;
-import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.hy.wanandroid.R;
 import com.hy.wanandroid.bean.ProjectListBean;
 import com.hy.wanandroid.data.SharedPreferenceUtils;
 import com.hy.wanandroid.framework.presenter.ProjectListPresenter;
 import com.hy.wanandroid.framework.view.ProjectListView;
-import com.hy.wanandroid.ui.activity.ArticleActivity;
-import com.hy.wanandroid.ui.adapter.BaseAdapter;
-import com.hy.wanandroid.ui.adapter.BaseViewHolder;
+import com.hy.wanandroid.ui.activity.WebActivity;
 import com.hy.wanandroid.ui.adapter.ProjectAdapter;
 import com.hy.wanandroid.ui.toast.ToastUtils;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -136,7 +127,7 @@ public class ProjectFragment extends BaseFragment implements
 
     @Override
     public void onItemClick(String link) {
-        Intent intent = new Intent(getActivity(), ArticleActivity.class);
+        Intent intent = new Intent(getActivity(), WebActivity.class);
         intent.putExtra(LINK, link);
         startActivity(intent);
     }

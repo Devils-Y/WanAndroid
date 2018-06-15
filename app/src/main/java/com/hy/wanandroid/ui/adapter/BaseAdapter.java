@@ -16,7 +16,7 @@ import java.util.List;
 public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
 
     //布局id
-    private int mLayoutId;
+    protected int mLayoutId;
     protected List<T> mData;
     protected LayoutInflater mLayoutInflater;
     protected Context mContext;

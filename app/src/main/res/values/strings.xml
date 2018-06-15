@@ -34,5 +34,8 @@
      <string name="confirm_password_txt">确认密码</string>
      <string name="confirm_register_txt">确认注册</string>
      <string name="register_txt">注册</string>
-     <!-- 收藏 -->
+     <!-- 设置 -->
+     <string name="clear_cache_txt">清除缓存</string>
+     <string name="logout_txt">退出登录</string>
+     <string name="author_link_txt">https://github.com/huxiaozi</string>
 </resources>

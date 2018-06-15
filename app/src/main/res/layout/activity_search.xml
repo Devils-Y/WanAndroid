@@ -96,6 +96,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/search_history_txt"
+            android:visibility="gone"
             android:textSize="15sp" />
 
     </RelativeLayout>
