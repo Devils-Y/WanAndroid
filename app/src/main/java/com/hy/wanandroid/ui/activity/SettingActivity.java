@@ -1,6 +1,8 @@
 package com.hy.wanandroid.ui.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
@@ -13,6 +15,8 @@ import com.hy.wanandroid.data.SharedPreferenceUtils;
 import com.hy.wanandroid.net.HttpNet;
 import com.hy.wanandroid.ui.toast.ToastUtils;
 import com.hy.wanandroid.util.GlideCacheUtil;
+
+import static com.hy.wanandroid.constants.Constants.CHANGE;
 
 /**
  * author: huyin
@@ -74,8 +78,11 @@ public class SettingActivity extends BaseActivity implements
             case R.id.logout:
                 if (!TextUtils.isEmpty(SharedPreferenceUtils.ReadUsername())) {
                     HttpNet.getInstantes().httpNetClearCookie();
-                    ToastUtils.toast("退出成功");
+                    Intent intent = new Intent(CHANGE);
                     SharedPreferenceUtils.WriteUsername(null);
+                    LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+                    ToastUtils.toast("退出成功");
+                    finish();
                 } else {
                     ToastUtils.toast("请先去登录");
                 }

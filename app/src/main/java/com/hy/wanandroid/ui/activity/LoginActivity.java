@@ -17,8 +17,8 @@ import com.hy.wanandroid.framework.presenter.LoginPresenter;
 import com.hy.wanandroid.framework.view.LoginView;
 import com.hy.wanandroid.ui.toast.ToastUtils;
 
-import static com.hy.wanandroid.constants.Constants.LOGIN_SUCCESS;
-import static com.hy.wanandroid.constants.Constants.PROJECTSTYLE;
+import static com.hy.wanandroid.constants.Constants.CHANGE;
+import static com.hy.wanandroid.constants.Constants.REGISTER_SUCCESS;
 
 /**
  * author: huyin
@@ -55,7 +55,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         findViewById(R.id.loginBtn).setOnClickListener(this);
         findViewById(R.id.registerTv).setOnClickListener(this);
 
-        receiveLoginSuccess();
+        receiveRegisterSuccess();
     }
 
     private EditText getUsernameEdit() {
@@ -99,6 +99,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     public void setLogin(LoginBean login) {
         SharedPreferenceUtils.WriteUsername(login.getUsername());
         ToastUtils.toast("登录成功");
+
+        Intent intent = new Intent(CHANGE);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
         finish();
     }
 
@@ -107,21 +110,26 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     /**
      * 注册广播接收器
      */
-    private void receiveLoginSuccess() {
+    private void receiveRegisterSuccess() {
         broadcastManager = LocalBroadcastManager.getInstance(this);
         IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(LOGIN_SUCCESS);
-        broadcastManager.registerReceiver(mLoginSuccessReceiver, intentFilter);
+        intentFilter.addAction(REGISTER_SUCCESS);
+        broadcastManager.registerReceiver(mRegisterSuccessReceiver, intentFilter);
     }
 
     /**
      * 接收到注册成功并登录广播并进行处理
      */
-    BroadcastReceiver mLoginSuccessReceiver = new BroadcastReceiver() {
+    BroadcastReceiver mRegisterSuccessReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             finish();
         }
     };
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        broadcastManager.unregisterReceiver(mRegisterSuccessReceiver);
+    }
 }

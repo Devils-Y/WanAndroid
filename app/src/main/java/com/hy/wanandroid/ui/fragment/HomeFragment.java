@@ -1,19 +1,25 @@
 package com.hy.wanandroid.ui.fragment;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.hy.wanandroid.R;
 import com.hy.wanandroid.bean.BannerBean;
+import com.hy.wanandroid.data.SharedPreferenceUtils;
 import com.hy.wanandroid.framework.presenter.BannerPresenter;
 import com.hy.wanandroid.framework.presenter.CollectPresenter;
 import com.hy.wanandroid.framework.presenter.UnCollectWithOriginIdPresenter;
@@ -45,6 +51,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import static com.hy.wanandroid.constants.Constants.CHANGE;
 import static com.hy.wanandroid.constants.Constants.LINK;
 
 /**
@@ -54,7 +61,7 @@ import static com.hy.wanandroid.constants.Constants.LINK;
  */
 public class HomeFragment extends BaseFragment implements View.OnClickListener,
         JsonView, FriendView, BannerView, CollectView, UnCollectWithOriginIdView,
-        GlideImageLoader.OnImageClickListener{
+        GlideImageLoader.OnImageClickListener {
 
     private int mScrollY = 0;
 
@@ -159,22 +166,31 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,
                         .setText(R.id.time, item.getNiceDate())
                         .setText(R.id.title, Html.fromHtml(item.getTitle()));
                 LikeButton likeButton = holder.getView(R.id.collectBtn);
-                if (item.isCollect()) {
-                    likeButton.setLiked(true);
-                } else {
-                    likeButton.setLiked(false);
-                }
-                likeButton.setOnLikeListener(new OnLikeListener() {
-                    @Override
-                    public void liked(LikeButton likeButton) {
-                        collectPresenter.postCollect(String.valueOf(item.getId()));
+                if (!TextUtils.isEmpty(SharedPreferenceUtils.ReadUsername())) {
+                    if (item.isCollect()) {
+                        likeButton.setLiked(true);
+                    } else {
+                        likeButton.setLiked(false);
                     }
+                    likeButton.setOnLikeListener(new OnLikeListener() {
+                        @Override
+                        public void liked(LikeButton likeButton) {
+                            collectPresenter.postCollect(String.valueOf(item.getId()));
+                        }
 
-                    @Override
-                    public void unLiked(LikeButton likeButton) {
-                        unCollectWithOriginIdPresenter.postUnCollect(String.valueOf(item.getId()));
-                    }
-                });
+                        @Override
+                        public void unLiked(LikeButton likeButton) {
+                            unCollectWithOriginIdPresenter.postUnCollect(String.valueOf(item.getId()));
+                        }
+                    });
+                } else {
+                    likeButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            ToastUtils.toast("请先去登录");
+                        }
+                    });
+                }
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -226,6 +242,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,
         });
         toolbar.setAlpha(0);
         toolbar.setBackgroundColor(0);
+
+        receiveLoginSuccess();
     }
 
     @Override
@@ -305,5 +323,35 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener,
         Intent intent = new Intent(getActivity(), WebActivity.class);
         intent.putExtra(LINK, link);
         startActivity(intent);
+    }
+
+    LocalBroadcastManager broadcastManager;
+
+    /**
+     * 注册广播接收器
+     */
+    private void receiveLoginSuccess() {
+        broadcastManager = LocalBroadcastManager.getInstance(getActivity());
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(CHANGE);
+        broadcastManager.registerReceiver(mLoginSuccessReceiver, intentFilter);
+    }
+
+    /**
+     * 接收到注册成功并登录广播并进行处理
+     */
+    BroadcastReceiver mLoginSuccessReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            page = 0;
+            jsonAdapter.clear();
+            jsonPresenter.getJson(String.valueOf(page));
+        }
+    };
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        broadcastManager.unregisterReceiver(mLoginSuccessReceiver);
     }
 }

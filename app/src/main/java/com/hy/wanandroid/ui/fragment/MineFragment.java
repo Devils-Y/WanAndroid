@@ -64,8 +64,10 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         if (TextUtils.isEmpty(SharedPreferenceUtils.ReadUsername())) {
             userName.setOnClickListener(this);
             userName.setText(R.string.not_login_txt);
+            userName.setEnabled(true);
         } else {
             userName.setText(SharedPreferenceUtils.ReadUsername());
+            userName.setEnabled(false);
         }
     }
 

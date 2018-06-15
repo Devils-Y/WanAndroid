@@ -15,7 +15,7 @@ import com.hy.wanandroid.framework.presenter.RegisterPresenter;
 import com.hy.wanandroid.framework.view.RegisterView;
 import com.hy.wanandroid.ui.toast.ToastUtils;
 
-import static com.hy.wanandroid.constants.Constants.LOGIN_SUCCESS;
+import static com.hy.wanandroid.constants.Constants.REGISTER_SUCCESS;
 
 /**
  * author: huyin
@@ -74,7 +74,7 @@ public class RegisterActivity extends BaseActivity implements
     public void setRegister(RegisterBean register) {
         SharedPreferenceUtils.WriteUsername(register.getUsername());
         ToastUtils.toast("登录成功!");
-        Intent intent = new Intent(LOGIN_SUCCESS);
+        Intent intent = new Intent(REGISTER_SUCCESS);
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
         finish();
     }
